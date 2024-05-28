@@ -165,11 +165,21 @@ public class RoadGenerator {
                                     if(!server.getOverworld().getBlockState(pos1c.add(i,0,j)).isAir())
                                     {
                                         BlockState state = server.getOverworld().getBlockState(pos1c.add(i,0,j));
+                                        if(server.getOverworld().getBlockState(pos1c.add(i,1,j)).isOf(Blocks.SNOW))
+                                        {
+                                            server.getOverworld().setBlockState(pos1c.add(i,1,j),Blocks.AIR.getDefaultState());
+                                        }
+
+                                        if(state.isOf(Blocks.SNOW))
+                                        {
+                                            server.getOverworld().setBlockState(pos1c.add(i,0,j),Blocks.AIR.getDefaultState());
+                                            server.getOverworld().setBlockState(pos1c.add(i,-1,j),Blocks.PACKED_ICE.getDefaultState());
+                                        }
                                         if(state.isIn(BlockTags.DIRT))
                                         {
                                             server.getOverworld().setBlockState(pos1c.add(i,0,j),Blocks.DIRT_PATH.getDefaultState());
                                         }
-                                        if(state.isIn(BlockTags.SAND))
+                                        if(state.isIn(BlockTags.SAND) || state.isIn(BlockTags.TERRACOTTA))
                                         {
                                             server.getOverworld().setBlockState(pos1c.add(i,0,j),Blocks.PACKED_MUD.getDefaultState());
                                         }
@@ -200,7 +210,7 @@ public class RoadGenerator {
                             server.getOverworld().setBlockState(lamp.up(1),Blocks.OAK_FENCE.getDefaultState());
                             server.getOverworld().setBlockState(lamp.up(2),Blocks.OAK_FENCE.getDefaultState());
                             server.getOverworld().setBlockState(lamp.up(3),Blocks.OAK_FENCE.getDefaultState());
-                            server.getOverworld().setBlockState(lamp.up(4),Blocks.SEA_LANTERN.getDefaultState());
+                            server.getOverworld().setBlockState(lamp.up(4),Blocks.LANTERN.getDefaultState());
 
                             AllRoads.LOGGER.debug("lamp at "+lamp.toShortString() +"["+xdistance+","+zdistance+"]");
                         }
